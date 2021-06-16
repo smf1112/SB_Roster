@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script>
+	var future = 0;
+
+function Timetable(future) {
+	if (future == 0) {
+		document.getElementById("WK_Display").value = "Present Week";	
+	}
+	if (future == 1) {
+		document.getElementById("WK_Display").value = "Next Week";	
+	}
+	if (future == 2) {
+		document.getElementById("WK_Display").value = "Two Weeks Time";	
+	}
+	if (future == 3) {
+		document.getElementById("WK_Display").value = "Three Weeks Time";	
+	}
+				
+	var d = new Date();
+	var SundaysCount = ((d.getTime()+(8.64e+7*4.458))/8.64e+7);
+	var TheWeek = Math.floor(SundaysCount/7)+future;
+	var WhichWeek = ( ((TheWeek / 4) - (Math.floor(TheWeek/4))) *4 );
+	var WhichWeek6 = Math.round( ((TheWeek / 6) - (Math.floor(TheWeek/6))) *6 );
+
+	var KYG = ["Paul","George","Asha","Rick"];
+	var RIV = ["Jason","Tim","Dave","*Reliever*"];
+	var GHY = ["Jess","*Reliever*","Darcy","Laura"];
+	var CAM = ["Geoffrey","Nabil","Casey","Dave"];
+
+	var RWD1 = ["Evan","Oscar","Laura","Adrian","Brian","*Reliever*"];
+	var RWD2 = ["*Reliever*","Evan","Oscar","Laura","Adrian","Brian"];
+	var RWD3 = ["Brian","*Reliever*","Evan","Oscar","Laura","Adrian"];
+	var RWD4 = ["Adrian","Brian","*Reliever*","Evan","Oscar","Laura"];	
+	var RWD5 = ["Laura","Adrian","Brian","*Reliever*","Evan","Oscar"];
+	var RWD6 = ["Oscar","Laura","Adrian","Brian","*Reliever*","Evan"];	
+
+
+	for (var i=0; i<4; i++) {
+		var WW = [0,0,0,0];
+		var W0 = [0,+1,+2,+3];
+		var W1 = [+2,-1,0,+1];
+		var W2 = [0,+1,-2,-1];
+		var W3 = [-2,-1,0,-3];	
+		if (WhichWeek == 0) {
+			WW[i] = W0[i];
+		}			
+		if (WhichWeek == 1) {
+			WW[i] = W1[i];
+		}
+		if (WhichWeek == 2) {
+			WW[i] = W2[i];
+		}	
+		if (WhichWeek == 3) {
+			WW[i] = W3[i];
+		}			
+		document.getElementById("KYG"+(i+1)).innerHTML = KYG[WhichWeek+WW[i]];
+		document.getElementById("RIV"+(i+1)).innerHTML = RIV[WhichWeek+WW[i]];
+		document.getElementById("GHY"+(i+1)).innerHTML = GHY[WhichWeek+WW[i]];
+		document.getElementById("CAM"+(i+1)).innerHTML = CAM[WhichWeek+WW[i]];				
+	}
+
+	document.getElementById("RWD1").innerHTML = RWD1[WhichWeek6];
+	document.getElementById("RWD2").innerHTML = RWD2[WhichWeek6];
+	document.getElementById("RWD3").innerHTML = RWD3[WhichWeek6];
+	document.getElementById("RWD4").innerHTML = RWD4[WhichWeek6];
+	document.getElementById("RWD5").innerHTML = RWD5[WhichWeek6];
+	document.getElementById("RWD6").innerHTML = RWD6[WhichWeek6];
+	
+}
+
+function TBLBTN(abc) {
+//	alert(abc);
+  var x = document.getElementById(abc);
+  	if (x.style.display === "none") {
+   	x.style.display = "block";
+	//document.getElementsByName(abc).innerHTML = "Expand";
+ 	} else {
+  	x.style.display = "none";
+ 	}	
+  //document.getElementById(abc).style.display = "none";
+}
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Signal Box Roster Chart</title>
+
+<style>
+table {
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+}
+td {
+	height:15px;
+	width:85px;
+	border:solid grey 2px;	
+}
+.tr1 {
+	background-color:#DDF;
+}	
+.tr2 {
+	background-color:#EBEBEB;
+}
+.tr3 {
+	background-color:#C7C7C7;
+}
+body {
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<body  onload="Timetable(0)"><center>
+<input type="button" value="Present Week" onclick="Timetable(0)" />
+<input type="button" value="+1 Week" onclick="Timetable(1)" />
+<input type="button" value="+2 Week" onclick="Timetable(2)" />
+<input type="button" value="+3 Week" onclick="Timetable(3)" />
+<input type="text" disabled readonly id="WK_Display" /></center>
+<br />
+<table  style="border:Black solid 4px; width:755px;">
+<thead>
+<th colspan="8" style="font-size:18px;">Riversdale <button style="float:right;" onclick="TBLBTN('BDRIV')">-/+</button></th>
+</thead>
+<tbody id="BDRIV" style="display:block;">
+	<tr class="tr1">
+    	<td></td>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+    </tr>
+	<tr class="tr2">
+    	<td id="RIV1"></td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>[EDO]</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>1400 - 2205</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="RIV2"></td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+    </tr>
+	<tr class="tr2">
+    	<td id="RIV3"></td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="RIV4"></td>
+        <td>0600 - 1405</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+    </tr>    
+    <th colspan="4">Monday [ 0600 - 1405 ]</th>
+    <th colspan="4">Friday [ 1400 - 2205 ]</th>
+    </tbody>
+</table>
+
+<br /><br />
+
+<table  style="border:Black solid 4px;  width:755px;">
+<thead>
+<th colspan="8" style="font-size:18px;">Glenhuntly <button style="float:right;" onclick="TBLBTN('BDGHY')">-/+</button></th>
+</thead>
+<tbody id="BDGHY">
+	<tr class="tr1">
+    	<td></td>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+    </tr>
+	<tr class="tr2">
+    	<td id="GHY1"></td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="GHY2"></td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>[EDO]</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+    </tr>
+	<tr class="tr2">
+    	<td id="GHY3"></td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="GHY4"></td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>[BO]</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>[BO]</td>
+    </tr>    
+    <th colspan="4">Tuesday [ 0600 - 1405 ]</th>
+    <th colspan="4">Saturday [ 0600 - 1405 ]</th>
+    </tbody>
+</table>
+
+<br /><br />
+
+<table  style="border:Black solid 4px; width:755px;">
+<thead>
+<th colspan="8" style="font-size:18px;">Kooyong <button style="float:right;" onclick="TBLBTN('BDKYG')">-/+</button></th>
+</thead>
+<tbody id="BDKYG">
+	<tr class="tr1">
+    	<td></td>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+    </tr>
+	<tr class="tr2">
+    	<td id="KYG1"></td>
+        <td>[BO]</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="KYG2"></td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+    </tr>
+	<tr class="tr2">
+    	<td id="KYG3"></td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>[BO]</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="KYG4"></td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+    </tr>    
+    <th colspan="4">Sunday [ 2200 - 0605 ]</th>
+    <th colspan="4">Wednesday [ 0600 - 1405 ]</th>
+    </tbody>
+</table>
+
+<br /><br />
+
+<table  style="border:Black solid 4px; width:755px;">
+<thead>
+<th colspan="8" style="font-size:18px;">Ringood / Blackburn <button style="float:right;" onclick="TBLBTN('BDRWD')">-/+</button></th>
+</thead>
+<tbody id="BDRWD">
+	<tr class="tr1">
+    	<td></td>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+    </tr>
+	<tr class="tr2">
+    	<td id="RWD1"></td>
+        <td>2200 - 0605 <B>RWD</B></td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td style="color:#339;">1400 - 2205 <B>RWD</B></td>
+        <td style="color:#339;">1400 - 2205 <B>RWD</B></td>
+        <td style="color:#339;">1400 - 2205 <B>RWD</B></td>
+        <td>[BO]</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="RWD2"></td>
+        <td>[BO]</td>
+        <td style="color:#339;">1400 - 2200 <B>BBN</B></td>
+        <td style="color:#339;">1400 - 2200 <B>BBN</B></td>
+        <td>[EDO]</td>
+        <td style="color:#F60;">0600 - 1405 <B>BBN</B></td>
+        <td style="color:#F60;">0600 - 1405 <B>BBN</B></td>
+        <td style="color:#F60;">0600 - 1405 <B>RWD</B></td>
+    </tr>
+	<tr class="tr2">
+    	<td id="RWD3"></td>
+        <td style="color:#F60;">0600 - 1405 <B>RWD</B></td>
+        <td>2200 - 0605 <B>RWD</B></td>
+        <td>2200 - 0605 <B>RWD</B></td>
+        <td>2200 - 0605 <B>RWD</B></td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="RWD4"></td>
+        <td>[BO]</td>
+        <td style="color:#F60;">0600 - 1405 <B>RWD</B></td>
+        <td style="color:#F60;">0600 - 1405 <B>RWD</B></td>
+        <td style="color:#F60;">0600 - 1405 <B>BBN</B></td>
+        <td style="color:#339;">1400 - 2200 <B>BBN</B></td>
+        <td style="color:#339;">1400 - 2200 <B>BBN</B></td>
+        <td style="color:#339;">1400 - 2205 <B>RWD</B></td>
+    </tr>
+	<tr class="tr2">
+    	<td id="RWD5"></td>
+        <td style="color:#339;">1400 - 2205 <B>RWD</B></td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td style="color:#F60;">0600 - 1405 <B>RWD</B></td>
+        <td style="color:#F60;">0600 - 1405 <B>RWD</B></td>
+        <td style="color:#F60;">0600 - 1405 <B>RWD/EDO</B></td>
+        <td>[BO]</td>
+    </tr> 
+	<tr class="tr3">
+    	<td id="RWD6"></td>
+        <td>[BO]</td>
+        <td style="color:#339;">1400 - 2205 <B>RWD</B></td>
+        <td style="color:#339;">1400 - 2205 <B>RWD</B></td>
+        <td style="color:#339;">1400 - 2200 <B>BBN</B></td>
+        <td>2200 - 0605 <B>RWD</B></td>
+        <td>2200 - 0605 <B>RWD</B></td>
+        <td>2200 - 0605 <B>RWD</B></td>
+    </tr>     
+	<tr>
+    	<th colspan="4">Monday BBN [ 0600 - 1405 ]</th>
+    	<th colspan="4">Friday RWD [ 0600 - 1405 ]</th>
+	</tr>
+	<tr>
+    	<th colspan="4">Tuesday BBN [ 0600 - 1405 ]</th>
+    	<th colspan="4">(Week 5, Off) (Week 11, RWD Reliever)</th>
+	</tr>
+    </tbody>
+</table>
+
+<br /><br />
+
+<table  style="border:Black solid 4px; width:755px;">
+<thead>
+<th colspan="8" style="font-size:18px;">Camberwell <button style="float:right;" onclick="TBLBTN('BDCAM')">-/+</button></th>
+</thead>
+<tbody id="BDCAM">
+	<tr class="tr1">
+    	<td></td>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+    </tr>
+	<tr class="tr2">
+    	<td id="CAM1"></td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>1400 - 2205</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="CAM2"></td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+    </tr>
+	<tr class="tr2">
+    	<td id="CAM3"></td>
+        <td>2200 - 0605</td>
+        <td>2200 - 0605</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+    </tr>
+	<tr class="tr3">
+    	<td id="CAM4"></td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>0600 - 1405</td>
+        <td>[BO]</td>
+        <td>[BO]</td>
+        <td>1400 - 2205</td>
+    </tr>    
+    <th colspan="4">Thursday [ 0600 - 1405 ]</th>
+    <th colspan="4">Friday [ 1400 - 2205 ]</th>
+    </tbody>
+</table>
+
+</body>
+</html>
